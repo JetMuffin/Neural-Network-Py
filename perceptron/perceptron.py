@@ -6,7 +6,7 @@ training_set = []
 training_data = np.array([])
 labels = []
 labels_data = np.array([])
-w = np.array([0.5, -1, -0.5])
+w = np.array([])
 b = 0.5
 hardlim = lambda x: 1 if x >= 0 else 0
 
@@ -48,6 +48,8 @@ if __name__ == '__main__':
     training_data = np.loadtxt(sys.argv[1], delimiter=" ")
     labels_data = np.loadtxt(sys.argv[2], delimiter=" ")
     modelFile = file(sys.argv[3], 'w')
+    #set w to zero matrix
+    w = np.zeros([1, training_data.shape[1]])
 
     # train start
     iter_count = cal()
