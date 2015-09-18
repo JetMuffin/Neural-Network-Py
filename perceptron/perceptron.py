@@ -1,9 +1,11 @@
 import numpy as np
 import sys
 
+# parameter init
 training_set = []
 training_data = np.array([])
 labels = []
+labels_data = np.array([])
 w = np.array([0.5, -1, -0.5])
 b = 0.5
 hardlim = lambda x: 1 if x >= 0 else 0
@@ -29,7 +31,7 @@ def cal():
     while True:
         flag = True
         for i in range(ndim):
-            e = check(training_data[i], labels[i])
+            e = check(training_data[i], labels_data[i])
             if(e != 0):
                 update(training_data[i], e)
                 iter_count += 1
@@ -39,23 +41,15 @@ def cal():
     return iter_count   
 
 if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print "Usage: python preceptron.py trainFile modelFile"
+    if len(sys.argv) != 4:
+        print "Usage: python preceptron.py train_data label_data modelFile"
         exit(0)
 
-    trainFile = file(sys.argv[1])
-    modelFile = file(sys.argv[2], 'w')
+    training_data = np.loadtxt(sys.argv[1], delimiter=" ")
+    labels_data = np.loadtxt(sys.argv[2], delimiter=" ")
+    modelFile = file(sys.argv[3], 'w')
 
-    for line in trainFile:
-        chunk = line.strip().split(':')
-        labels.append(int(chunk[0]))
-        data_single = chunk[1].strip().split(' ')
-        lens = len(data_single)
-        tmp = [int(data_single[i]) for i in range(lens)]
-        training_set.append(tmp)
-    trainFile.close()
-
-    training_data = np.array(training_set)
+    # train start
     iter_count = cal()
 
     modelFile.write(" ".join(str(i) for i in w) + "\n")
