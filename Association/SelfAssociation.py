@@ -35,12 +35,12 @@ def cal(data):
     return a
 
 def show(data):
-    image = np.zeros([60,50])
+    image = np.zeros([600,500])
     for i in range(data.shape[0]):
         if(data[i] == -1):
-            image[i/5*10:i/5*10+9, i%5*10:i%5*10+9] = 0
+            image[i/5*100:i/5*100+99, i%5*100:i%5*100+99] = 0
         else:
-            image[i/5*10:i/5*10+9, i%5*10:i%5*10+9] = 1
+            image[i/5*100:i/5*100+99, i%5*100:i%5*100+99] = 1
     cv2.imshow("Image", image)
     cv2.waitKey (0)
 
