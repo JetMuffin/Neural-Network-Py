@@ -43,14 +43,14 @@ class BPNN:
         self.ai = p
 
         # 计算隐层
-        self.ah = np.dot(self.ai, self.wi)
-        # self.ah = np.dot(self.ai, self.wi)+self.bi
+        # self.ah = np.dot(self.ai, self.wi)
+        self.ah = np.dot(self.ai, self.wi)+self.bi
         for i in range(self.ah.shape[0]):
             self.ah[i] = logsig(self.ah[i])
 
         # 计算输出层
-        self.ao = np.dot(self.ah, self.wo)
-        # self.ao = np.dot(self.ah, self.wo)+self.bo
+        # self.ao = np.dot(self.ah, self.wo)
+        self.ao = np.dot(self.ah, self.wo)+self.bo
         return self.ao
 
     def back(self, target, alpha):
@@ -85,7 +85,7 @@ class BPNN:
                 break
             if i % 100 == 0:
                 print "error: ", error
-        print iter_count
+        print "iter_count: ",iter_count
 
     def test(self, p):
         res = self.forward(p)
@@ -96,10 +96,14 @@ def demo():
     t = np.array([[0],[1],[1],[0]])
     a = np.array([0,1])
     b = np.array([1,1])
+    c = np.array([1,0])
+    d = np.array([0,0])
     model = BPNN(2,2,1)
     model.train(p, t)
     model.test(a)
     model.test(b)
+    model.test(c)
+    model.test(d)
 
 if __name__ == '__main__':
     demo()
